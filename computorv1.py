@@ -43,14 +43,10 @@ class Equation():
             self.eq_elems[i] = self.eq_elems[i] * self.eq_signs[i]
         if self.degre == 2:
             self.delta = self.eq_elems[1] * self.eq_elems[1] - 4 * (self.eq_elems[0] * self.eq_elems[2])
-        """
-        delta for degree 1
-        """
 
     def calcul_sols(self):
-        """solutions for degree 1 to do without delta"""
         if self.degre == 1:
-            self.sols.append(((-1 * self.eq_elems[0]) - self.delta ** 0.5) / (2 * self.eq_elems[1]))
+            self.sols.append(self.eq_elems[0] / self.eq_elems[1] * -1)
         elif self.degre == 2:
             self.sols.append(((-1 * self.eq_elems[1]) - self.delta ** 0.5) / (2 * self.eq_elems[2]))
             if self.delta > 0:
