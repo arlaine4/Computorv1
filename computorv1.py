@@ -34,7 +34,9 @@ class Equation():
     def print_result(self):
         print("Reduced form: {}\nPolynomial degree: {}".format(self.red_eq, self.degre))
         if self.solvable is False:
-            if self.degre > 2:
+            if len(self.sols) == 1 and self.sols[0] == None:
+                print("The 'a * X^2' element can't be zero, there is no solutions to this equation.")
+            elif self.degre > 2:
                 if self.delta < 0:
                     print("The polynomial degree is strictly greater than 2, I can't solve.\nAnd the discriminant is strictly negative.")
                 else:
@@ -43,7 +45,10 @@ class Equation():
                 print("The discriminant is striclty negative, there is no solutions.")
         elif self.solvable is True:
             if self.degre == 1:
-                print("The solution is:\n{}".format(self.sols[0]))
+                if self.sols[0] != 0:
+                    print("The solution is:\n{:.6}".format(self.sols[0]))
+                else:
+                    print("The solution is:\n{}".format(self.sols[0]))
             elif self.degre == 2:
                 if self.delta > 0:
                     print("Discriminant is strictly positive, the two solutions are:\n{:.6}\n{:.6}".format(self.sols[0], self.sols[1]))
@@ -55,6 +60,8 @@ class Equation():
             self.eq_elems[i] = self.eq_elems[i] * self.eq_signs[i]
         if self.degre == 2:
             self.delta = self.eq_elems[1] * self.eq_elems[1] - 4 * (self.eq_elems[0] * self.eq_elems[2])
+        if self.delta < 0 and self.degre == 2:
+            self.solvable = False
 
     def calcul_sols(self):
         if self.degre == 1:
@@ -63,8 +70,12 @@ class Equation():
             else:
                 self.sols.append(self.eq_elems[0] / self.eq_elems[1] * -1)
         elif self.degre == 2:
-            self.sols.append(((-1 * self.eq_elems[1]) - self.delta ** 0.5) / (2 * self.eq_elems[2]))
-            if self.delta > 0:
+            if self.eq_elems[2] == 0:
+                self.sols.append(None)
+                self.solvable = False
+            else:
+                self.sols.append(((-1 * self.eq_elems[1]) - self.delta ** 0.5) / (2 * self.eq_elems[2]))
+            if self.delta > 0 and self.solvable is True:
                 self.sols.append(((-1 * self.eq_elems[1]) + self.delta ** 0.5) / (2 * self.eq_elems[2]))
 
     def check_degre(self, argv):
