@@ -1,0 +1,5 @@
+add something for 2nd degree, if elems[0] and [1] == 0
+len(sol) = 1 and sol[0] = 0
+
+add something for 2nd degree, if elem[2] == 0
+This is not a quadratic equation, can't solve it
